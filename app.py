@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, render_template, request
 from wordlist import WordList
 from datetime import date
 
@@ -20,3 +20,8 @@ def api():
 def api_random():
     w =  words.get_random_word()
     return {"word": w.word, "definition": w.definition}
+
+@app.route("/game/practice", methods = ["GET"])
+def game():
+    w = words.get_random_word()
+    return render_template("game.html", word = w)
