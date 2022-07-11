@@ -5,7 +5,7 @@ from datetime import date
 app = Flask(__name__)
 
 dictionary = WordList("words.csv", 0, 3)
-jeopardy = WordList("jeopardy.csv", 4, 2)
+songs = WordList("songs.csv", 1, 0)
 
 @app.route("/", methods = ["GET"])
 def index():
@@ -25,9 +25,9 @@ def api_random():
 @app.route("/game/dictionary/practice", methods = ["GET"])
 def dictionary_game():
     w = dictionary.get_random_word()
-    return render_template("game.html", word = w)
+    return render_template("dictionary.html", word = w)
 
-@app.route("/game/jeopardy/practice", methods = ["GET"])
-def jeopardy_game():
-    w = jeopardy.get_random_word()
-    return render_template("game.html", word = w)
+@app.route("/game/songs/practice", methods = ["GET"])
+def songs_game():
+    w = songs.get_random_word()
+    return render_template("songs.html", word = w)
