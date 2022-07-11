@@ -4,7 +4,8 @@ from datetime import date
 
 app = Flask(__name__)
 
-words = WordList("words.csv")
+dictionary = WordList("words.csv", 0, 3)
+jeopardy = WordList("jeopardy.csv", 4, 2)
 
 @app.route("/", methods = ["GET"])
 def index():
@@ -12,16 +13,21 @@ def index():
 
 @app.route("/api/", methods = ["GET"])
 def api():
-    w = words.get_todays_word(date.today().day)
+    w = dictionary.get_todays_word(date.today().day)
     return {"word": w.word, "definition": w.definition}
 
 
 @app.route("/api/random", methods = ["GET"])
 def api_random():
-    w =  words.get_random_word()
+    w =  dictionary.get_random_word()
     return {"word": w.word, "definition": w.definition}
 
-@app.route("/game/practice", methods = ["GET"])
-def game():
-    w = words.get_random_word()
+@app.route("/game/dictionary/practice", methods = ["GET"])
+def dictionary_game():
+    w = dictionary.get_random_word()
+    return render_template("game.html", word = w)
+
+@app.route("/game/jeopardy/practice", methods = ["GET"])
+def jeopardy_game():
+    w = jeopardy.get_random_word()
     return render_template("game.html", word = w)

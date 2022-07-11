@@ -11,11 +11,14 @@ class Word:
         return Word(line[word_index], d)
 
 class WordList:
-    def __init__(self, csv_file: str) -> None:
+    def __init__(self, csv_file: str, anwser_index: int = 0, question_index: int = 3) -> None:
         self.words = self.load_word_list(csv_file)
 
         self.day = -1
         self.counter = 0
+
+        self.anwser_index = anwser_index
+        self.question_index = question_index
 
         self.random_indexes = [i for i in range(0, len(self.words))]
         random.shuffle(self.random_indexes)
@@ -27,7 +30,7 @@ class WordList:
             r = csv.reader(csvfile)
 
             for line in r:
-                words.append(Word.fromCSV(line))
+                words.append(Word.fromCSV(line, self.anwser_index, self.question_index))
         
         return words
 
