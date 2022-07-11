@@ -116,7 +116,7 @@
     <script>
         var input = document.getElementById("guess");
         var table = document.getElementById("table");
-        var word = "{{word.word}}"
+        var word = "repeating"
 
         input.addEventListener("keypress", function(event) {
           if (event.key === "Enter") {
@@ -163,7 +163,7 @@
             for (let i = 0; i < split.length; i++) {
                 if (split[i] == word_split[i]) {
                     colored += "<span style='color: #61c961'>" + split[i] + "</span>";
-                } else if (word_split.includes(split[i])){
+                } else if (word_split.slice(word_split.indexOf(split[i])).includes(split[i])){
                     colored +=  "<span style='color: #ffff57'>" + split[i] + "</span>";
                 } else {
                     colored += split[i];
