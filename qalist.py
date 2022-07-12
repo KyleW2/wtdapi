@@ -2,18 +2,22 @@ import csv
 import random
 
 class QAPair:
-    def __init__(self, question: str, answer: str) -> None:
-        self.question = question
+    def __init__(self, answer: str, question: str) -> None:
         self.answer = answer
+        self.question = question
     
-    def fromCSV(line: str, answer: int = 0, question: int = 3) -> object:
-        d = line[question].strip('"').strip('\\').replace("  ", " ")
-        return QAPair(line[answer], d)
+    def fromCSV(line: str, answer: int = 0, question: int = 3, combine: bool = False, combine_index: int = -1) -> object:
+        q = line[question].strip('"').strip('\\').replace("  ", " ")
+        if combine:
+            q += ", " + line[combine_index].strip('"').strip('\\').replace("  ", " ")
+        return QAPair(line[answer], q)
 
 class QAList:
-    def __init__(self, csv_file: str, answer_index: int = 0, question_index: int = 3) -> None:
+    def __init__(self, csv_file: str, answer_index: int = 0, question_index: int = 3, combine: bool = False, combine_index: int = -1) -> None:
         self.answer_index = answer_index
         self.question_index = question_index
+        self.combine = combine
+        self.combine_index = combine_index
 
         self.QAs = self.load_qa_list(csv_file)
 
@@ -31,7 +35,7 @@ class QAList:
 
             try:
                 for line in r:
-                    QAs.append(QAPair.fromCSV(line, self.answer_index, self.question_index))
+                    QAs.append(QAPair.fromCSV(line, self.answer_index, self.question_index, self.combine, self.combine_index))
             except UnicodeDecodeError:
                 pass
         

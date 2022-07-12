@@ -8,16 +8,19 @@ app = Flask(__name__)
 IP = get('https://api.ipify.org').content.decode('utf8')
 IP = "http://127.0.0.1:5000"
 
-QADictionary = {"dictionary": QAList("data/words.csv", 3, 0),
-                "songs": QAList("data/songs.csv", 0, 1)
+QADictionary = {"dictionary": QAList("data/words.csv", 0, 3),
+                "songs": QAList("data/songs.csv", 1, 0),
+                "movies": QAList("data/movies.csv", 1, 9, True, 2)
 }
 
 question_name = {"songs": "Title",
-                 "dictionary": "Definition"
+                 "dictionary": "Definition",
+                 "movies": "Director"
 }
 
 answer_name = {"songs": "Artist",
-               "dictionary": "Word"
+               "dictionary": "Word",
+               "movies": "Movie"
 }
 
 @app.route('/favicon.ico')
