@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+
+<head>
+    <link href='https://fonts.googleapis.com/css?family=Secular One' rel='stylesheet'>
+    <link href='https://fonts.googleapis.com/css?family=Source Code Pro' rel='stylesheet'>
+    {% block style %}
+        <link rel="stylesheet" href="{{ url_for('static', filename='game_style.css') }}"/>
+    {% endblock %}
+
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    
+</head>
+<body onload="init()"; bgcolor="#121213">
+    <h1 style="color: white; text-align: center; font-size: 2.25em; font-family: 'Secular One'">
+        D<span style="color: #61c961">i</span><span style="color: #ffff57">f</span>fer
+    </h1>
+    <hr style="color: grey; width: 100%;">
+
+    <div class="definition" style="margin: auto; width: 50%;">
+        <p style="color: white; text-align: center; font-size: 1.5em; font-family: 'Source Code Pro';">
+            <u>Title</u>: <div id="word"> _ </div>
+        </p>
+    </div>
+
+    <div class="input-container" style="margin: auto; width: 50%;">
+        <input id="guess" style="font-family: 'Source Code Pro';" type="text" required=""/>
+		<label style="font-family: 'Source Code Pro';">Artist</label>
+    </div>
+
+    <div style="margin: auto; width: 50%; color: white; font-family: 'Source Code Pro'; padding-top: 0.25em;">
+        <table id="table">
+        </table>
+    </div>
+    {% block javascript %}
+    <script type="text/javascript">
+        {% include "songs/script.js" %}
+    </script>
+    {% endblock %}
+</body>
