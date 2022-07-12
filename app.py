@@ -26,7 +26,7 @@ def favicon():
 
 @app.route("/", methods = ["GET"])
 def index():
-    return "<p>Word of the day API. Access through /api/</p>"
+    return render_template("page.html")
 
 # API
 @app.route("/api/<list_to_use>/<mode>", methods = ["GET"])
