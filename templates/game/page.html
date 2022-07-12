@@ -1,8 +1,10 @@
 <!DOCTYPE html>
 
 <head>
+    <title>Differ</title>
     <link href='https://fonts.googleapis.com/css?family=Secular One' rel='stylesheet'>
     <link href='https://fonts.googleapis.com/css?family=Source Code Pro' rel='stylesheet'>
+    <link rel="icon" type="image/x-icon" href="/static/favicon.ico">
     {% block style %}
         <link rel="stylesheet" href="{{ url_for('static', filename='game_style.css') }}"/>
     {% endblock %}
@@ -19,13 +21,13 @@
 
     <div class="definition" style="margin: auto; width: 50%;">
         <p style="color: white; text-align: center; font-size: 1.5em; font-family: 'Source Code Pro';">
-            <u>Title</u>: <span id="word">AAAAAAAAAAAAAAAA</span>
+            <u>{{question_name}}</u>: <span id="word">AAAAAAAAAAAAAAAA</span>
         </p>
     </div>
 
     <div class="input-container" style="margin: auto; width: 50%;">
         <input id="guess" style="font-family: 'Source Code Pro';" type="text" required=""/>
-		<label style="font-family: 'Source Code Pro';">Artist</label>
+		<label style="font-family: 'Source Code Pro';">{{answer_name}}</label>
     </div>
 
     <div style="margin: auto; width: 50%; color: white; font-family: 'Source Code Pro'; padding-top: 0.25em;">
@@ -34,7 +36,7 @@
     </div>
     {% block javascript %}
     <script type="text/javascript">
-        {% include "songs/script.js" %}
+        {% include "game/script.js" %}
     </script>
     {% endblock %}
 </body>

@@ -5,33 +5,35 @@ from requests import get
 
 app = Flask(__name__)
 IP = get('https://api.ipify.org').content.decode('utf8')
+IP = "http://127.0.0.1:5000"
 
-songs = QAList("data/songs.csv", 0, 1)
+QADictionary = {"dictionary": QAList("data/words.csv", 3, 0),
+                "songs": QAList("data/songs.csv", 0, 1)
+}
+
+question_name = {"songs": "Title",
+                 "dictionary": "Definition"
+}
+
+answer_name = {"songs": "Artist",
+               "dictionary": "Word"
+}
 
 @app.route("/", methods = ["GET"])
 def index():
     return "<p>Word of the day API. Access through /api/</p>"
 
 # API
-# Songs
-@app.route("/api/songs/random", methods = ["GET"])
-def api_songs_random():
-    w = songs.get_random_pair()
-    return {"answer": w.answer, "question": w.question}
-
-@app.route("/api/songs/daily", methods = ["GET"])
-def songs_game():
-    w = songs.get_todays_pair(date.today().day)
-    return {"answer": w.answer, "question": w.question}
+@app.route("/api/<list_to_use>/<mode>", methods = ["GET"])
+def api(list_to_use: str, mode: str):
+    if mode == "random":
+        w = QADictionary[list_to_use].get_random_pair()
+        return {"answer": w.answer, "question": w.question}
+    if mode == "daily":
+        w = QADictionary[list_to_use].get_todays_pair(date.today().day)
+        return {"answer": w.answer, "question": w.question}
 
 # GAME
-# Songs
-@app.route("/game/songs/random", methods = ["GET"])
-def game_songs_random():
-    w = songs.get_random_pair()
-    return render_template("songs/page.html", IP = IP)
-
-@app.route("/game/songs/daily", methods = ["GET"])
-def game_songs_daily():
-    w = songs.get_todays_pair(date.today().day)
-    return render_template("songs/page.html", word = w)
+@app.route("/game/<list_to_use>/<mode>", methods = ["GET"])
+def game(list_to_use: str, mode: str):
+    return render_template(f"game/page.html", IP = IP, list_to_use = list_to_use, mode = mode, question_name = question_name[list_to_use], answer_name = answer_name[list_to_use])
