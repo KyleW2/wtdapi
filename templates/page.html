@@ -23,7 +23,10 @@
     <div class="color-box">
         <table class="link-table">
             <tr>
-                <td>Games: <a href="{{url_for('game', list_to_use = 'songs', mode = 'random')}}">songs</a>, <a href="{{url_for('game', list_to_use = 'dictionary', mode = 'random')}}">dictionary</a></td>
+                <td>Games: <a href="{{url_for('game', list_to_use = 'songs', mode = 'random')}}">songs</a>, 
+                    <a href="{{url_for('game', list_to_use = 'dictionary', mode = 'random')}}">dictionary</a>,
+                    <a href="{{url_for('game', list_to_use = 'movies', mode = 'random')}}">movies</a>
+                </td>
             </tr>
         </table>
     </div>
