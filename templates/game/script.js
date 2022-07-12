@@ -7,7 +7,7 @@ var word = "";
 
 // Calls api to get QAPair
 function init() {
-    $.getJSON("{{IP}}/api/{{list_to_use}}/{{mode}}", function(QApair) {
+    $.getJSON("/api/{{list_to_use}}/{{mode}}", function(QApair) {
         question = QApair.question;
         word = QApair.answer;
         console.log(word)
