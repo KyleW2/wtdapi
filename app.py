@@ -1,7 +1,8 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, send_from_directory
 from qalist import QAList
 from datetime import date
 from requests import get
+import os
 
 app = Flask(__name__)
 IP = get('https://api.ipify.org').content.decode('utf8')
@@ -18,6 +19,10 @@ question_name = {"songs": "Title",
 answer_name = {"songs": "Artist",
                "dictionary": "Word"
 }
+
+@app.route('/favicon.ico')
+def favicon():
+    return send_from_directory(os.path.join(app.root_path, 'static'), 'favicon.ico')
 
 @app.route("/", methods = ["GET"])
 def index():
