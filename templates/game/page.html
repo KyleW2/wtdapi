@@ -6,7 +6,9 @@
     <link href='https://fonts.googleapis.com/css?family=Source Code Pro' rel='stylesheet'>
     <link rel="icon" type="image/x-icon" href="/wtdapi/static/favicon.ico">
     {% block style %}
-        <link rel="stylesheet" href="/wtdapi/static/game_style.css') }}"/>
+    <style>
+        {% include "static/game_style.css" %}
+    </style>
     {% endblock %}
 
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
