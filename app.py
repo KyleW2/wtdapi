@@ -1,34 +1,37 @@
 from flask import Flask, render_template, request
-from qalist import WordList
+from qalist import QAList
 from datetime import date
 from requests import get
 
 app = Flask(__name__)
 IP = get('https://api.ipify.org').content.decode('utf8')
 
-dictionary = WordList("data/words.csv", 0, 3)
-songs = WordList("data/songs.csv", 1, 0)
+songs = QAList("data/songs.csv", 0, 1)
 
 @app.route("/", methods = ["GET"])
 def index():
     return "<p>Word of the day API. Access through /api/</p>"
 
-@app.route("/api/", methods = ["GET"])
-def api():
-    w = dictionary.get_todays_word(date.today().day)
-    return {"word": w.word, "definition": w.definition}
+# API
+# Songs
+@app.route("/api/songs/random", methods = ["GET"])
+def api_songs_random():
+    w = songs.get_random_pair()
+    return {"answer": w.answer, "question": w.question}
 
-@app.route("/api/dictionary/random", methods = ["GET"])
-def api_dictionary_random():
-    w =  dictionary.get_random_word()
-    return {"word": w.word, "definition": w.definition}
-
-@app.route("/game/dictionary/practice", methods = ["GET"])
-def dictionary_game():
-    w = dictionary.get_random_word()
-    return render_template("dictionary.html", word = w)
-
-@app.route("/game/songs/practice", methods = ["GET"])
+@app.route("/api/songs/daily", methods = ["GET"])
 def songs_game():
-    w = songs.get_random_word()
-    return render_template("songs.html", word = w)
+    w = songs.get_todays_pair(date.today().day)
+    return {"answer": w.answer, "question": w.question}
+
+# GAME
+# Songs
+@app.route("/game/songs/random", methods = ["GET"])
+def game_songs_random():
+    w = songs.get_random_pair()
+    return render_template("songs/page.html", IP = IP)
+
+@app.route("/game/songs/daily", methods = ["GET"])
+def game_songs_daily():
+    w = songs.get_todays_pair(date.today().day)
+    return render_template("songs/page.html", word = w)
