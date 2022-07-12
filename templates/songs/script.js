@@ -1,5 +1,6 @@
 var input = document.getElementById("guess");
 var table = document.getElementById("table");
+var title_span = document.getElementById("word");
 
 var question = "";
 var word = "";
@@ -11,9 +12,10 @@ function init() {
         word = QApair.answer;
         console.log(word)
         console.log(question)
+        
+        title_span.textContent = question;
     });
-    var title_span = document.getElementById("word");
-    title_span.innerHTML = question;
+    
 }
 
 input.addEventListener("keypress", function(event) {
